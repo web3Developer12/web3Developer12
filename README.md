@@ -1,3 +1,4 @@
+![Snake animation](https://github.com/web3Developer12/web3Developer12/blob/output/github-contribution-grid-snake.svg)
 
 ## 🌐 Socials:
 [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?logo=Twitter&logoColor=white)](https://twitter.com/web3_ruud) 
