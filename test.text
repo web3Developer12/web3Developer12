@@ -54,8 +54,8 @@ function App() {
 
   return (
     <div className="App">
-     
-       <motion.div 
+
+       <motion.div
        className='window'
        initial={{
         opacity:0,
@@ -90,7 +90,7 @@ function App() {
 
           <motion.div className='window-screen' ref={constraintsRef}>
 
-              <motion.div 
+              <motion.div
                 drag
                 dragConstraints={constraintsRef}
                 dragElastic={2.2}
@@ -114,7 +114,7 @@ function App() {
                       <img src={navButton} width={38}/>
                       <p className='Regular'>BIO.CONFIG</p>
                       <img src={user} width={19} className='userImg'/>
-                  </div>   
+                  </div>
 
                   <div className='window-profile-body'>
 
@@ -135,10 +135,10 @@ function App() {
                     <p className="Regular">@Twitter</p>
                     <p className="Regular">@DevTo</p>
                   </div>
-                  
+
               </motion.div>
-              
-              <motion.div 
+
+              <motion.div
               drag
               dragConstraints={constraintsRef}
               dragElastic={2.2}
@@ -168,7 +168,7 @@ function App() {
                   <img src={artwork} width={72}/>
                   <div className='window-music-content'>
                     <div className='row-win-1'>
-                      
+
                       <div className='col-win-1'>
                         <p className='Bold'>MEMORIES</p>
                         <p className='Regular'>Aiden347</p>
@@ -192,7 +192,7 @@ function App() {
 
               </motion.div>
 
-              <motion.div 
+              <motion.div
               drag
               dragConstraints={constraintsRef}
               dragElastic={2.2}
@@ -243,7 +243,7 @@ function App() {
                 </motion.div>
 
               <motion.div className='desktop-icons'>
-                
+
                 <motion.div  className="Regular">
                   <img src={drive} width={73}/>
                   <p>HARDWORKER</p>
@@ -253,8 +253,8 @@ function App() {
                   <img src={drive2} width={73}/>
                   <p>HOBBIES</p>
                 </div>
-               
-               
+
+
                 <div className="Regular">
                   <img src={pBlock} width={73}/>
                   <p>STUDENT</p>
@@ -266,9 +266,9 @@ function App() {
                 </div>
 
               </motion.div>
-              
-        
-              
+
+
+
           </motion.div>
 
        </motion.div>
@@ -287,8 +287,8 @@ export default App
   display:flex;
   align-items:center;
   justify-content:center;
-  
-  
+
+
 }
 *{
   overflow:hidden;
@@ -476,7 +476,7 @@ export default App
   grid-template-columns:1fr 1fr;
   grid-column-gap:12px;
   grid-row-gap:12px;
-  
+
 }
 .desktop-icons div{
   display:flex;
