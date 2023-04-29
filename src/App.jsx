@@ -1,352 +1,279 @@
 import { useState,useEffect,useRef } from 'react'
-import { motion, useScroll, useTransform,useInView} from 'framer-motion'
+import { motion, useScroll, useTransform} from 'framer-motion'
 import './App.css'
-import { LocomotiveScrollProvider } from "react-locomotive-scroll";
+import SmoothScroll from './SmoothScroll'
+import gsap from 'gsap'
+import Reveal from './components/Reveal'
+import { useLayoutEffect } from 'react'
+import { Expo } from 'gsap'
+import Mouse from './components/Mouse'
 
-function AnimateLetter(props) {
-    const ref = useRef(null)
-    const isInView = useInView(ref)
-
-    return <motion.div style={{display:'flex',overflow:'hidden',...props.style}} ref={ref}>
-        {
-            [...props.text].map((el,index)=>{
-                return <motion.p  initial={{y:400}} animate={isInView ?{y:0}:{y:400}} transition={{delay:index * 0.05,duration:1}} key={index}>
-                    {el}
-                </motion.p>
-            })
-        }
-    </motion.div>
-}
-
-function AnimateLetterInViewHidden(props) {
-
-    const ref = useRef(null)
-    const isInView = useInView(ref)
-
-    return <motion.div style={{display:"flex",overflow:'hidden',...props.style}} ref={ref}>
-        {
-            [...props.text].map((el,index)=>{
-                return <motion.p  initial={{y:400}} animate={isInView ?{y:0} :{y:400}} transition={{delay:index * 0.05,duration:1}} key={index}>
-                    {el}
-                </motion.p>
-            })
-        }
-    </motion.div>
-}
-
-function ScrollTextOpacity(props) {
-
-    const ref = useRef(null);
-
-    const scroll = useScroll({
-        target: ref,
-
-    });
-
-    const val = useTransform(scroll.scrollYProgress, props.start, props.end)
-
-    return <motion.p ref={ref} onMouseEnter={props.onMouseEnter} onMouseLeave={props.onMouseLeave} style={{...props.style,opacity:val}}>{props.children}</motion.p>
-}
 
 function App() {
 
 
+    const refApp = useRef()
 
-    const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-    const [variantPointer, setVariantPointer] = useState('none');
-    const [splash,setSplash] = useState(true)
+    useLayoutEffect(() => {
 
-    const {scrollYProgress} = useScroll()
-    const x = useTransform(scrollYProgress,[1,-1],[0,-600])
+        let ctx = gsap.context(() => {
 
-    const ref = useRef(null);
+            var tl = gsap.timeline({smoothChildTiming:true})
+            
+            // ANIMATE ENTRY
+            tl.to(".text", {ease:Expo.easeInOut,duration:2})
+            tl.to(".texts > div", { x:-500,ease:Expo.easeInOut,stagger:0.05})
+            tl.to(".texts", { y:-600,rotate:-90,scale:4.5,duration:2,ease:Expo.easeInOut})
+            tl.to(".text", { opacity:1,fontWeight:300,ease:Expo.easeInOut})
+            tl.to(".texts > div", { x:-7500,ease:Expo.easeInOut,stagger:0.05,})
+            tl.to(".reveal-container", { y:870,ease:Expo.easeInOut,display:'none'})
+            
+            // ANIMATE HERO
+            tl.to(".divider", { width:'100%',ease:Expo.easeInOut,duration:1,stagger:0.05});
+            tl.fromTo(".ch > p",{ y:     100,opacity: 0,skewY:70},{y: 0,opacity: 1,stagger: 0.03,duration:.8,ease:Expo.easeInOut,skewY:0})
+            tl.to(".captions > p", { y:0,ease:Expo.easeInOut,duration:.5,stagger:0.05})
+            tl.fromTo('.card',{ y: 100,opacity: 0,skewY:-70},{y: 0,opacity: 1,stagger:0.005,duration:1,ease:Expo.easeInOut,skewY:0})
+            tl.play()
 
-    const scrollDiv = useScroll({
-        target: ref,
-
-    });
-
-    const scale = useTransform(scrollYProgress, [0,1], [.9, 1])
-
-
-    const refTextProfile = useRef(null);
-
-    const scrollTextProfile = useScroll({
-        target: refTextProfile,
-
-    });
-
-    const YProfile = useTransform(scrollTextProfile.scrollYProgress, [0,12], [0,400])
-
-    const updateCursorPosition = (event) => {
-        setCursorPosition({ x: event.clientX, y: event.clientY });
-    };
-
-    useEffect(() => {
+        },refApp);
         
-        window.addEventListener("mousemove", updateCursorPosition);
+        return () => ctx.revert();
 
-        return () => {
-            window.removeEventListener("mousemove", updateCursorPosition);
-        };
-    });
-
-    const variants = {
-        none:{
-          height: 38,
-          width : 38,
-          x     : cursorPosition.x - (38/2),
-          y     : cursorPosition.y - (38/2)
-        },
-        text:{
-          height: 180,
-          width : 180,
-          x     : cursorPosition.x - (180/2),
-          y     : cursorPosition.y - (180/2)
-        },
-    }
-
-    const refMain = useRef();
-
-    const options = {
-        smooth: true,
-    } 
-
-    return <LocomotiveScrollProvider options={
-        {
-          smooth: true,
-          // ... all available Locomotive Scroll instance options 
-        }
-      }
-      watch={
-        [
-          //...all the dependencies you want to watch to update the scroll EXCEPT the location one
-        ]
-      }
-      containerRef={refMain}
-      onLocationChange={scroll => scroll.scrollTo(0, { duration: 0, disableLerp: true })} // If you want to reset the scroll position to 0 for example
-      onUpdate={() => console.log('Updated, but not on location change!')} >
-        <motion.main className='App' data-scroll-container ref={refMain}>
-        <motion.div variants={variants} animate={variantPointer} className='cursor'></motion.div>
-            { splash &&
-            <motion.div className='splash' style={{position:"fixed",zIndex:9999999999,width:"100%",height:"100%"}}>
-
-                {
-                    [.5,.3,.2,.1].map((el,index)=>{
-                        return <motion.div
-                        style      = {{backgroundColor:"black",height:"25%"}}
-                        initial    = {{width:"100%"}}
-                        animate    = {{width:"0%"}}
-                        transition = {{delay:el}}
-                        key        = {index}
-                        onAnimationComplete = {()=>{
-                            if(el == .1){
-                                setTimeout(()=>{
-                                    setSplash(false)
-                                },1000)
-                            }
-                        }}
-                    ></motion.div>
-                    })
-                }
-
-            </motion.div>
-            }
-
-            <motion.div className='navbar'>
-            <motion.p className='REGULARMACHINA title' onMouseEnter={()=>{setVariantPointer('text')}} onMouseLeave={()=>{setVariantPointer('none')}}>
-                RCS | web3
-            </motion.p>
-            <motion.ul>
-                <motion.li>ABOUT</motion.li>
-                <motion.li>PROJECTS</motion.li>
-                <motion.li>FAQ</motion.li>
-                <motion.li>CONTACT</motion.li>
-            </motion.ul>
-            </motion.div>
-
-            <motion.div className='content' >
-
-                <motion.div  className='text-1'  onMouseEnter={()=>{setVariantPointer('text')}} onMouseLeave={()=>{setVariantPointer('none')}}>
-                    <AnimateLetter text='BLOCKCHAIN'  setVariantPointer = {setVariantPointer} style={{paddingInline:"4%"}}/>
-                </motion.div>
-
-                <motion.div  className='text-1' style={{display:'flex',justifyContent:'flex-end',marginTop:'2%'}} >
-                    <AnimateLetter text='DEVELOPER'    setVariantPointer = {setVariantPointer} style={{paddingInline:"4%"}}/>
-                </motion.div>
-
-                <motion.div className='text-1' style={{marginTop:'2%'}}>
-                    <AnimateLetter text='& UX DESIGNER' setVariantPointer = {setVariantPointer} style={{paddingInline:"4%"}}/>
-
-                </motion.div>
-            </motion.div>
-
-            <motion.div style={{display:'flex',alignItems:'center',justifyContent:'center'}}
-
-            >
-                <motion.svg  viewBox="0 0 100 100" width="180" height="180"  animate={{ rotate: 360 }}
-                    transition={{ ease: "linear", duration:5, repeat: Infinity }}>
-                    <defs>
-                        <path id="circle"
-                        d="
-                            M 50, 50
-                            m -37, 0
-                            a 37,37 0 1,1 74,0
-                            a 37,37 0 1,1 -74,0"/>
-                    </defs>
-                    <text fontSize="16" fontFamily='NMACHINAREGULAR'>
-                        <textPath xlinkHref="#circle">
-                        ETHEREUM * BLOCKCHAIN * DEV
-                        </textPath>
-                    </text>
-                </motion.svg>
-            </motion.div>
+    }, []);
 
 
-            <motion.div className='hero-1' >
+    return <div className='App' ref={refApp}>
+        {<Reveal/>}
+        <Mouse/>
+        <div className='wrapper-main'>
+            <div className='wrapper-hero'>
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    className='ABOUT-TXT'
-                >
-                    <motion.p style={{x}}>ABOUT - ABOUT - ABOUT - ABOUT - ABOUT - ABOUT - ABOUT</motion.p>
-                </motion.div>
+                <div className='wrapper-container'>
 
-                <motion.div >
+                        <div className='wrapper-ln'>
+                                <motion.div className='ch'>
+                                    <p className='char'>CHR</p>
+                                    <p className='char'>I</p>
+                                    <p className='char'>S</p>
+                                    <p className='char'>T</p>
+                                    <p className='char' style={{marginRight:'1%'}}><i>O </i></p>
+                                    <p className='char'>P</p>
+                                    <p className='char'>H</p>
+                                    <p className='char'>E</p>
+                                    <p className='char'>R</p>
+                                </motion.div>
+                                <div></div>
+                                <motion.div className='ch'>
+                                    <p className='char'>RU</p>
+                                    <p className='char'>U</p>
+                                    <p className='char'>D</p>
+                                    <p className='char'>.</p>
+                                    <p className='char'><i>S</i></p>
+                                </motion.div>
+                        </div>
+                        <div className='divider'></div>
+                        <div className='captions'>
+                            <motion.p initial={{y:500}}>BLOCKCHAIN DEVELOPER</motion.p>
+                            <motion.p initial={{y:500}}>SOFTWARE DEVELOPER</motion.p>
+                            <motion.p initial={{y:500}}>Email</motion.p>
+                            <motion.p initial={{y:500}}>United States - Orlando</motion.p>
+                        </div>
 
-                    <motion.div style={{marginInline:'8%'}}>
+                        <div className='wrapper-ln-2 border'>
+                            <div className='card'>About</div>
 
-                        <motion.div style={{overflow:'hidden',marginTop:'8%',marginBottom:'2%'}}>
-                            <motion.p ref={refTextProfile} style={{fontFamily:'NMACHINALIGHT',fontSize:44,y:YProfile}}>PROFILE</motion.p>
-                        </motion.div>
+                            <div className='center-text ch'>
+                                <p className='char'>T</p>
+                                <p className='char'>A</p>
+                                <p className='char'>L</p>
+                                <p className='char'>E</p>
+                                <p className='char'>N</p>
+                                <p className='char'>TED</p>
 
-                        <motion.div  style={{overflow:'hidden'}}>
+                            </div>
 
-                            <ScrollTextOpacity
-                                onMouseEnter={()=>{setVariantPointer('text')}}
-                                onMouseLeave={()=>{setVariantPointer('none')}}
-                                style={{fontFamily:'NMACHINALIGHT'}}
-                                start = {[0,1]} end = {[1,0]}
-                            >
-                                "A small intro"
-                            </ScrollTextOpacity>
+                            <div className='card card-2'>Projects</div>
+                        </div>
 
-                        </motion.div>
-
-                        <motion.div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-
-                            <motion.div style={{width:'35%',textAlign:'justify',marginTop:'.2%',fontSize:'13px',lineHeight:'22px'}}>
-
-                                <ScrollTextOpacity style={{fontFamily:'NMACHINALIGHT'}} start = {[0,1]} end = {[1,0]}>HEY, I'M A UI/UX DESIGNER AND WEB DEVELOPER. I LOVE BUILDING NICE EXPERIENCES FOR STARTUPS & AGENCIES.</ScrollTextOpacity>
-                            </motion.div>
-
-                            <motion.div style={{width:'35%',textAlign:'justify',marginTop:'2%',fontSize:'14px',lineHeight:'22px'}}>
-                                <ScrollTextOpacity start = {[0,1]} end = {[1,0]} style={{fontFamily:'NMACHINALIGHT'}}>Self taught UX/UI designer with a passion to learn new skills and technologies. I am currently studying web development in Paris at "L'école multimedia". I have been building interfaces for startups since 2020.<br/><br/>
-    I help businesses leave a lasting impression in the digital world. With a touch of creativity and empathy, I specialize in crafting modern websites that offer user-centric experiences .</ScrollTextOpacity>
-                            </motion.div>
-                        </motion.div>
-
-                    </motion.div>
-
-                    <motion.div ref={ref} className='code-style' style={{padding:'6%',overflow:'hidden',background:'black',width:'100%',marginTop:'2%',scale,marginBottom:'5%'}}>
-                        <motion.div style={{opacity:scrollDiv.scrollYProgress}} transition={{duration:1}}>
-                            pragma solidity^0.8.17;<br/>external() returns(uint256){`...`}
-                        </motion.div>
-                    </motion.div>
-
-                </motion.div>
-            </motion.div>
+                        <div className='divider'></div>
 
 
+                        <div className='wrapper-ln-3'>
+                            
+                            <div className='ch'>
+                                <p className='char'>W</p>
+                                <p className='char'>E</p>
+                                <p className='char'>B</p>
+                                <p className='char'>3</p>
+                            </div>
 
-            <motion.div className='hero-2' >
+                            <div className='ch'>
+                                <p className='char'>D</p>
+                                <p className='char'>E</p>
+                                <p className='char'>V</p>
+                                <p className='char'>E</p>
+                                <p className='char'>L</p>
+                                <p className='char'>O</p>
+                                <p className='char'>P</p>
+                                <p className='char'>E</p>
+                                <p className='char'>R</p>
+                            </div>
 
-                <motion.div>
-                    <motion.div  className='text-1'  onMouseEnter={()=>{setVariantPointer('text')}} onMouseLeave={()=>{setVariantPointer('none')}}>
-                        <AnimateLetter text='SKILLS'  setVariantPointer = {setVariantPointer}/>
-                    </motion.div>
+                        </div>
 
-                    <motion.div   className='text-1' style={{display:'flex',justifyContent:'flex-end'}} >
-                        <AnimateLetter text='&TOOLS' setVariantPointer = {setVariantPointer} />
-                    </motion.div>
-                </motion.div>
+                        <div className='divider'></div>
 
-                <motion.div className='skills'>
 
-                    <motion.div className='ceil-sk-1'>
+                        <div className='wrapper-ln-4'>
+                            <div className='ch'>
+                                <p className='char'>B</p>
+                                <p className='char'>A</p>
+                                <p className='char'>S</p>
+                                <p className='char'>E</p>
+                                <p className='char'>D</p>
+                            </div>
+                            <div className='card' style={{backgroundColor:'#263a29',color:'white'}}>Linkedin</div>
+                            <div className='ch'>
+                                <p className='char'>I</p>
+                                <p className='char'>N</p>
+                                <p className='char'>.</p>
+                                <p className='char'>O</p>
+                                <p className='char'>*</p>
+                                <p className='char'>L</p>
+                                <p className='char'>*</p>
+                                <p className='char'>N</p>
+                                <p className='char'>*</p>
+                                <p className='char'>*</p>
 
-                        <motion.div style={{overflow:'hidden'}}>
-                            <AnimateLetterInViewHidden text="SKILLS" style={{fontSize:'53px',fontFamily:'NMACHINAREGULAR'}}/>
-                        </motion.div>
+                            </div>
+                        </div>
+                        <div className='divider'></div>
 
-                        <motion.p initial={{opacity:0}} animate={{opacity:1}}>
-                            Lorem ipsum dolor citraem dolarea ditraem dorea ditras tomati dilo que trae no citro darem koiraiyuri toku no deba tie.
-                        </motion.p>
+                    </div>
+            </div>
 
-                    </motion.div>
+            <div className='about'>
+                <p className='about-intro'>I <i>strive</i> to create<br/>websites <br/>with a <i>great</i><br/>attention</p>
+                <div className='about-txt'>
+                        <p>As a developer, I am passionate about creating innovative solutions to complex problems. With expertise in web2 & web3 & game & app development and ethical hacking.<br/><br/>I am committed to delivering high-quality code that is efficient, scalable, and easy to maintain.</p>
+                        <br/>
 
-                    <motion.div className='ceil-sk-2'>
-                        <motion.ul>
-                            {
-                                [
-                                "HTML","CSS","JAVASCRIPT","REACT","REDUX","FRAMER-MOTION","NODE JS","HARDHAT",
-                                "BLOCKCHAIN","ETHEREUM","POLYGON","AVALANCE","LAYER-1","LAYER-2","DEFI","PYTHON","JAVA"
-                                ]
-                                .map((e,index)=>{
-                                    return <motion.li key={index} initial={{x:234,opacity:0}} whileInView={{x:0,opacity:1}} transition={{
-                                        delay:.2,duration:.5
-                                    }}>
-                                        {e}
-                                    </motion.li>
-                                })
-                            }
-                        </motion.ul>
-                    </motion.div>
-                </motion.div>
+                        <div className='about-skills'>
+                        
+                            <div>
+                                <p>Html/Css/Javascript</p>
+                                <p>2023</p>
+                                <p>2023</p>
+                            </div>
 
-            </motion.div>
+                            <div>
+                                <p>React js/Node js</p>
+                                <p>2023</p>
+                                <p>2023</p>
+                            </div>
 
-            <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    className='ABOUT-TXT'
-                    style={{marginTop:'8%',borderBottom:'1px solid black'}}
-                >
-                    <motion.p style={{x}}>PROJECTS - PROJECTS - PROJECTS - PROJECTS - PROJECTS</motion.p>
-            </motion.div>
+                            <div>
+                                <p>Framer Motion/Gsap</p>
+                                <p>2023</p>
+                                <p>2023</p>
+                            </div>
 
-            <motion.div className='scroll-v' style={{paddingInline:"4%",paddingTop:"8%",background:'black',height:'100vh',position:'relative',overflow:'hidden'}}>
-                <motion.p style={{color:'white',fontFamily:"NMACHINAREGULAR",fontSize:"83px",borderBottom:".1px solid white",marginBottom:'3%'}}>
-                    DAPPS - DECENTRALIZED APP
-                </motion.p>
+                            <div>
+                                <p>Solidity/Yul</p>
+                                <p>2023</p>
+                                <p>2023</p>
+                            </div>
 
-                <motion.div style={{position:'relative',overflow:'hidden',display:'flex',alignItems:'center',justifyContent:'space-between',color:'white',fontFamily:"NMACHINAREGULAR",height:'62px',borderBottom:".1px solid white"}}>
-                    <motion.p>Decentralized Finance Bank.DEFI</motion.p>   
-                    <motion.p>2022</motion.p>   
-                </motion.div>
+                            <div>
+                                <p>Ethereum/Layer-2</p>
+                                <p>2023</p>
+                                <p>2023</p>
+                            </div>
+
+                            <div>
+                                <p>Python</p>
+                                <p>2023</p>
+                                <p>2023</p>
+                            </div>
+
+                            <div>
+                                <p>C/C#</p>
+                                <p>2023</p>
+                                <p>2023</p>
+                            </div>
+
+
+                        </div>
+                </div>
+
                 
+            </div>
 
-                <motion.div style={{display:'flex',alignItems:'center',justifyContent:'space-between',color:'white',fontFamily:"NMACHINAREGULAR",height:'62px',borderBottom:".1px solid white"}}>
-                    <motion.p>Decentralized Gmail3.0 Alchemy University</motion.p>   
-                    <motion.p>2023</motion.p>   
-                </motion.div>
-                <motion.div style={{display:'flex',alignItems:'center',justifyContent:'space-between',color:'white',fontFamily:"NMACHINAREGULAR",height:'62px',borderBottom:".1px solid white"}}>
-                    <motion.p>Decentralized BuyMeACoffee3.0</motion.p>   
-                    <motion.p>2023</motion.p>   
-                </motion.div>
-                <motion.div style={{display:'flex',alignItems:'center',justifyContent:'space-between',color:'white',fontFamily:"NMACHINAREGULAR",height:'62px',borderBottom:".1px solid white"}}>
-                    <motion.p>Decentralized BallotBox3.0</motion.p>   
-                    <motion.p>2023</motion.p>   
-                </motion.div>
-                <motion.div style={{display:'flex',alignItems:'center',justifyContent:'space-between',color:'white',fontFamily:"NMACHINAREGULAR",height:'62px',borderBottom:".1px solid white"}}>
-                    <motion.p>Decentralized GoFundMe3.0</motion.p>   
-                    <motion.p>2023</motion.p>   
-                </motion.div>
-            </motion.div>
+            <div className='projects'>
+                <div className='tl'>Selected</div>
+                <div className='tl'>Projects</div>
+                <div className='tl'>(2018-Today)</div>
 
-        </motion.main>
-    </LocomotiveScrollProvider> 
+                <div className='projects-items'>
+                    <div className='pr-1'>
+
+                        <div className='header'>
+                            <p>Decentralized Gmail</p>
+                            <p>2023</p>
+                        </div>
+
+                        <div className='bottom'>
+                            <p>Ethereum</p>
+                            <p>01</p>
+                        </div>
+
+                    </div>
+                    <div className='pr-2'>
+
+                    <div className='header'>
+                            <p>Decentralized Gmail</p>
+                            <p>2023</p>
+                        </div>
+
+                        <div className='bottom'>
+                            <p>Ethereum</p>
+                            <p>01</p>
+                        </div>
+                    </div>
+
+                    <div className='pr-3'>
+
+                        <div className='header'>
+                                <p>Decentralized Gmail</p>
+                                <p>2023</p>
+                            </div>
+
+                            <div className='pr-bottom'>
+                                <p>Ethereum</p>
+                                <p>01</p>
+                            </div>
+                    </div>
+
+                    <div className='pr-1'>
+
+<div className='header'>
+<p>Decentralized Gmail</p>
+<p>2023</p>
+</div>
+
+<div className='bottom'>
+<p>Ethereum</p>
+<p>01</p>
+</div>
+
+</div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 
 }
 

@@ -27,3 +27,79 @@
 
 }
 
+@font-face {
+	font-family:'Mash';
+	src: url('./assets/fonts/MASH/Mash-VariableVF.woff2') format('woff2');
+	font-weight: 100 800;
+}
+
+
+@font-face {
+	font-family:'Decay';
+	src: url('./assets/fonts/packs/Decay/Decay-White-Alt.otf');
+}
+
+
+@font-face {
+	font-family:'Monument';
+	src: url('./assets/fonts/packs/MonumentExtended/MonumentExtended-Bold.otf');
+}
+
+
+@font-face {
+	font-family:'GroteskMedium';
+	src: url('./assets/fonts/packs/MonumentExtended/MonumentExtended-Ultralight.otf');
+}
+
+@font-face {
+	font-family:'GroteskLight';
+	src: url('./assets/fonts/packs/MonumentExtended/MonumentExtended-Ultralight.otf');
+}
+
+
+@font-face {
+	font-family:'GroteskBold';
+	src: url('./assets/fonts/packs/MonumentExtended/MonumentExtended-Ultralight.otf');
+}
+
+@font-face {
+	font-family:'Delhia';
+	src: url('./assets/fonts/packs/MonumentExtended/MonumentExtended-Bold.otf');
+}
+
+
+@font-face {
+	font-family:'Grotesk-Regular';
+	src: url('./assets/fonts/packs/MonumentExtended/MonumentExtended-Regular.otf');
+}
+
+@font-face {
+	font-family:'Monu-Bold';
+	src: url('./assets/fonts/packs/MonumentExtended/MonumentExtended-Bold.otf');
+}
+
+
+
+@font-face {
+	font-family:'editorial-reg';
+	src: url('./assets/fonts/PPEditorialNew/PPEditorialNew-Regular.otf');
+}
+
+
+
+
+@font-face {
+	font-family:'neu-med';
+	src: url('./assets/fonts/PPNeueMontreal/OTF/PPNeueMontreal-Medium.otf');
+}
+
+
+
+
+
+
+
+
+
+
+
