@@ -1,0 +1,27 @@
+@font-face {
+    font-family:'EditorialNew-Regular';
+    src: url('../assets/fonts/PPEditorialNew/PPEditorialNew-Regular.otf');
+}
+
+@font-face {
+    font-family:'EditorialNew-Italic';
+    src: url('../assets/fonts/PPEditorialNew/PPEditorialNew-Italic.otf');
+}
+
+
+@font-face {
+    font-family:'PPNeueMontreal-Medium';
+    src: url('../assets/fonts/PPNeueMontreal/OTF/PPNeueMontreal-Medium.otf');
+}
+
+@font-face {
+    font-family:'PPNeueMontreal-Bold';
+    src: url('../assets/fonts/PPNeueMontreal/OTF/PPNeueMontreal-Bold.otf');
+}
+
+.i{
+    font-family:'EditorialNew-Italic';
+}
+.b{
+    font-family:'PPNeueMontreal-Bold';
+}

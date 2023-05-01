@@ -1,0 +1,25 @@
+ <div data-scroll-section>
+                <h1 data-scroll>Hey</h1>
+                <p data-scroll>👋</p>
+            </div>
+            <div data-scroll-section>
+                <h2 data-scroll data-scroll-speed="4">What's up?</h2>
+                <p data-scroll data-scroll-speed="2">😬</p>
+</div>
+
+
+<div class='wrapper-ln-2 border' data-scroll data-scroll-speed="2">
+                    <div class='card' onmouseenter="onMouseDownCard()" onmouseout="onMouseExitCard()">About</div>
+
+                    <div class='center-text ch'>
+                        <p class='char' >T</p>
+                        <p class='char' >A</p>
+                        <p class='char' >L</p>
+                        <p class='char'>E</p>
+                        <p class='char' >N</p>
+                        <p class='char'>TED</p>
+
+                    </div>
+
+                    <div class='card card-2'>Projects</div>
+                </div>

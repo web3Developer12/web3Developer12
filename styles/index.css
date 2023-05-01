@@ -1,0 +1,464 @@
+* {
+    margin: 0;
+    padding: 0;
+
+}
+
+
+body {
+    background-color: #F2E3D8;
+    overflow-x:hidden;
+}
+
+.reveal-container {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left:0;
+    background-color: #1e3121;
+    ;
+    z-index: 99222;
+    user-select: none;
+    overflow: hidden;
+}
+
+.reveal-container .texts .text {
+    width: 300%;
+    opacity: .2;
+    font-size: 55px;
+    white-space: nowrap;
+    color: rgb(255, 255, 255);
+    font-family: 'EditorialNew-Regular';
+}
+
+.wrapper-hero,.about,.projects{
+  padding-inline:3%;
+}
+
+.wrapper-container {
+    margin-top: 2%;
+    padding-inline: 1%;
+    padding-top: 1%;
+
+}
+
+.main-wrapper {
+    /*background-color: #d3c0b2;*/
+    border-radius: 12px;
+    margin-inline: 1%;
+    padding-top: 2%;
+    margin-top: 2%;
+
+    background-color: #a792834d;
+}
+
+.wrapper-ln {
+    display: grid;
+    grid-template-columns: 1fr 1% 1fr;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    font-size: 24px;
+    font-family: 'EditorialNew-Regular';
+
+
+
+}
+
+.captions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-transform: uppercase;
+    margin-top: .5%;
+    font-size: 13px;
+    overflow: hidden;
+    font-family:'PPNeueMontreal-Medium';
+
+}
+
+
+.sk:hover {
+    font-weight: 400;
+    transform: skewY(10);
+}
+
+.wrapper-ln-2 {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 6%;
+    border-bottom: 1px solid;
+    border-color: transparent;
+    overflow: hidden;
+    font-family: 'PPNeueMontreal-Medium';
+
+
+
+}
+
+.wrapper-ln-2 .center-text {
+    display: flex;
+    font-size: 114px;
+}
+
+.card {
+    width: 235px;
+    height: 85px;
+    margin-bottom: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    border-bottom-right-radius: 15px;
+    font-size: 14px;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    font-family: 'PPNeueMontreal-Medium';
+
+
+}
+
+.card:nth-child(1) {
+    background-color: #af9d93;
+    font-family: 'PPNeueMontreal-Medium';
+
+}
+
+.card-2 {
+    width: 235px;
+    height: 85px;
+    margin-bottom: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    border-bottom-right-radius: 15px;
+    font-size: 14px;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    font-family: 'PPNeueMontreal-Medium';
+
+}
+
+.card-2 {
+    background-color: #e86a33;
+}
+
+.wrapper-ln-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid;
+    border-color: transparent;
+    font-size: 124px;
+    font-family: 'PPNeueMontreal-Medium';
+    overflow:hidden;
+
+
+}
+
+.wrapper-ln-4 {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+    border-color: transparent;
+    font-size: 114px;
+
+    font-family: 'PPNeueMontreal-Medium';
+    overflow:hidden;
+
+}
+
+.wrapper-ln-4 .card {
+    width: 235px;
+    height: 85px;
+    margin-bottom: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    border-bottom-right-radius: 15px;
+    margin-top: 1%;
+    font-size: 14px;
+    padding-left: 1%;
+    background-color: #263a29;
+    font-family: 'PPNeueMontreal-Medium';
+    color:#f2e3db;
+
+}
+
+.ch,
+.nm,
+.wb,
+.dev,
+.project-txt
+{
+    display: flex;
+}
+
+
+.divider {
+    height: 1px;
+    width: 0%;
+    background-color: rgb(0, 0, 0);
+}
+
+.tb{
+    background-color:red;
+    width:100%;
+    color:red;
+}
+
+.mouse{
+    position:fixed;
+    width:60px;
+    height:60px;
+    background-color:transparent;
+    border-radius:100%;
+    border:1px solid #685a52;
+    transform:translate(-50%,-50%);
+    z-index:33322;
+
+}
+
+.follower{
+    position:fixed;
+    width:5px;
+    height:5px;
+    background-color:transparent;
+    border-radius:100%;
+    background-color:black;
+    transform:translate(-50%,-50%);
+    z-index:122;
+    transition:.1s;
+
+}
+
+
+.fixed{
+    position:fixed;
+    z-index:93333;
+}
+
+
+.about{
+    display:grid;
+    grid-template-columns:48% 1fr;
+    margin-top:11%;
+
+  
+  }
+  
+  .about .about-intro{
+    font-size:33px;
+
+    font-family:'EditorialNew-Regular';
+
+
+  
+  
+  
+  }
+  
+  .about .about-txt{
+    font-size:17px;
+    text-align:justify;
+    font-family:'PPNeueMontreal-Medium';
+    font-weight:thin;
+
+    
+  
+  }
+  
+  .about-skills{
+    margin-top:5%;
+  }
+  
+  .about-skills div{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:.1px solid #a79283;
+    height: 35px;
+  }
+  
+
+  .projects{
+    margin-top:5%;
+    padding-bottom:2%;
+    font-family:'PPNeueMontreal-Medium';
+
+  
+  
+  }
+  
+  .projects .tl{
+    font-size:164px;
+    border-bottom:.1px solid #46403c;
+
+
+  
+  }
+  
+  .tl:nth-child(2){
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+  }
+  .tl:nth-child(3){
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  
+  .projects-items,.contact-items{
+    margin-top:5%;
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+  }
+  .contact-items {
+    
+  }
+  .contact-items > div {
+    background-color:transparent;
+    border:.1px solid rgb(219, 245, 219);
+    color:white;
+  }
+  .pr-1{
+    padding:4%;
+    height:356px;
+    border-bottom-right-radius:43px;
+    background-color: #263a29;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .visible-pr{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:space-between;
+  }
+  
+  .pr-1 .header,.pr-1 .bottom{
+    color: white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    font-family:'PPNeueMontreal-Medium';
+
+  }
+
+  
+  
+  .pr-2{
+    height:356px;
+    border-bottom-right-radius:23px;
+    background-color:#e86a33;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+  
+    justify-content:space-between;
+    padding:4%;
+  }
+  
+  .pr-2 .header,.pr-2 .bottom{
+    color: white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    font-family:'PPNeueMontreal-Medium';
+
+  }
+  
+  .pr-3{
+    grid-column:2 span;
+    border-bottom-right-radius:23px;
+    background-color:#ffeee8;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+  
+    justify-content:space-between;
+    padding:3%;
+  }
+
+  .pr-3 .header,.pr-3 .bottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    font-family:'PPNeueMontreal-Medium';
+
+  }
+
+
+.marquee {
+  overflow: hidden;
+  font-weight: 600;
+  font-size: 134px;
+  text-transform: uppercase;
+  position:absolute;
+  z-index:1;
+  top:50%;
+  left:0;
+  font-family:'PPNeueMontreal-Medium';
+  color:white;
+
+}
+
+.marquee__inner {
+  display: flex;
+}
+
+.marquee__line {
+  display:flex;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 10px 15px;
+  min-width: 100%;
+  white-space: nowrap;
+  animation-name: marqueeLine;
+  animation-duration: 15s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  overflow-y:hidden;
+}
+
+
+
+@keyframes marqueeLine {
+  from {
+    transform: translateX(0);
+  }
+  
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.contact{
+  background-color:#1a291c;
+  border-radius:12px;
+  padding:6%;
+  margin-top:11%;
+}
+
+.contact .msg {
+
+  color:white;
+  font-size:32px;
+  font-family:'PPNeueMontreal-Medium';
+  text-align:justify;
+  margin-left:23%;
+
+}
+
